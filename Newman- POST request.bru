@@ -1,0 +1,49 @@
+meta {
+  name: Newman- POST request
+  type: http
+  seq: 2
+}
+
+post {
+  url: https://postman-echo.com/post
+  body: text
+  auth: none
+}
+
+headers {
+  Content-Type: text/plain
+}
+
+body:text {
+  Duis posuere augue vel cursus pharetra. In luctus a ex nec pretium...
+}
+
+script:pre-request {
+  const moment = require("moment");
+  const uuid = require('uuid'); 
+  var navigator = {}; // required
+  var window = {}; // required
+  console.log("test2=" + bru.getEnvVar("test2"));
+  eval(bru.getEnvVar("jsrsasign"));
+  //eval(pm.globals.get("jsrsasign")); // Import JavaScript jsrsasign
+  
+  const header = {"alg":"RS256"};
+  const date = moment();
+  const payload = {
+      "aud":req.url,
+      "iat":date.unix(),
+      "exp":date.add(5,"m").unix(),
+      "iss":bru.getEnvVar("clientId"),
+      "sub":bru.getEnvVar("clientId"),
+      "jti": uuid.v4()
+  };  
+  
+  const jwk = bru.getEnvVar("privateKey");
+  const prvKey = KEYUTIL.getKey(jwk);
+  const jwt = KJUR.jws.JWS.sign(header.alg,
+                              JSON.stringify(header), 
+                              JSON.stringify(payload), 
+                              prvKey);
+  
+  bru.setEnvVar("jwt",jwt);
+}

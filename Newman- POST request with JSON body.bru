@@ -1,0 +1,19 @@
+meta {
+  name: Newman- POST request with JSON body
+  type: http
+  seq: 3
+}
+
+post {
+  url: https://postman-echo.com/post
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"text":"Duis posuere augue vel cursus pharetra. In luctus a ex nec pretium..."}
+}

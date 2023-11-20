@@ -1,0 +1,32 @@
+meta {
+  name: Newman- GET request
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://postman-echo.com/get?source=newman-sample-github-collection
+  body: none
+  auth: none
+}
+
+query {
+  source: newman-sample-github-collection
+}
+
+script:pre-request {
+  // const x=1;
+  // 2e ligne
+  // 3e
+  // lafin
+}
+
+tests {
+  // pm.test('expect response be 200', function () {
+  //     pm.response.to.be.ok
+  // })
+  // pm.test('expect response json contain args', function () {
+  //     pm.expect(pm.response.json().args).to.have.property('source')
+  //       .and.equal('newman-sample-github-collection')
+  // })
+}
